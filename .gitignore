@@ -1,0 +1,12 @@
+# Bower generated files
+bower_components
+
+# OS-specific indices
+.DS_Store
+Thumbs.db
+
+# Sublime Text workspace
+*.sublime-workspace
+
+# Vim swap files
+*.swp
