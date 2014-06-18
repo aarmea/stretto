@@ -10,3 +10,10 @@ VexFlow with MusicXML support](https://github.com/ringw/vexflow).
    by following
    [their instructions](https://github.com/0xfe/vexflow/wiki/Build-Instructions)
    inside VexFlow's directory (`frontend/bower_components/vexflow`).
+
+Running the demo
+================
+
+To quickly run the demo without starting a dedicated server:
+1. Run `python -m SimpleHTTPServer`.
+2. Navigate to <http://localhost:8000/demo.html>.

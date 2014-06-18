@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Stretto Demo</title>
+    <meta name="viewport" content="initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+    <!-- Based heavily on ringw's VexFlow MusicXML demo at http://ringwa.lt/vexflow-demo/ -->
+
+    <!-- Compiled Sources (may need to be copied to same directory) -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/vexflow/build/vexflow/vexflow-debug.js"></script>
+
+    <script>
+      // source: http://stackoverflow.com/a/901144
+      function getParameter(name) {
+        name = name.replace(/\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(window.location.search);
+        if (results == null) return undefined;
+        else return decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+
+      var doc = null;
+      $(document).ready(function() {
+        var req = new XMLHttpRequest();
+        var uri = getParameter('doc');
+        if (! uri) uri = 'demo/bach_bwv846p.xml';
+        req.open('GET', uri, true);
+        req.onreadystatechange = function() {
+          if (req.readyState != 4) return;
+          doc = new Vex.Flow.Document(req.responseText);
+          doc.getFormatter().setWidth(800).draw($("#viewer")[0]);
+        };
+        req.send(null);
+      });
+    </script>
+    <style>
+      #viewer {
+        width: 100%;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stretto Demo</h1>
+    <div id="viewer"></div>
+  </body>
+</html>
