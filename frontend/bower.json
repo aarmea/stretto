@@ -4,6 +4,6 @@
   "private": true,
   "dependencies": {
     "jquery": "jquery/jquery",
-    "vexflow": "ringw/vexflow#musicxml"
+    "vexflow": "0xfe/vexflow"
   }
 }

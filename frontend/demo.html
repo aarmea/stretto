@@ -7,9 +7,17 @@
 
     <!-- Compiled Sources (may need to be copied to same directory) -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/vexflow/build/vexflow/vexflow-debug.js"></script>
+    <script src="bower_components/vexflow/build/vexflow/vexflow-min.js"></script>
+
+    <!-- Stretto files -->
+    <!-- TODO: Add a build script to automatically minify these -->
+    <!-- TODO: Add a stretto.js file to simplify the API -->
+    <script src="js/stretto.js"></script>
+    <script src="js/serialization/serialization.js"></script>
+    <script src="js/serialization/musicxml.js"></script>
 
     <script>
+      // JavaScript URL parameter parsing
       // source: http://stackoverflow.com/a/901144
       function getParameter(name) {
         name = name.replace(/\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -21,14 +29,29 @@
 
       var doc = null;
       $(document).ready(function() {
+        // AJAX request a static music file
+        // TODO: Pull it from the collaborative backend instead
         var req = new XMLHttpRequest();
         var uri = getParameter('doc');
         if (! uri) uri = 'demo/bach_bwv846p.xml';
         req.open('GET', uri, true);
         req.onreadystatechange = function() {
           if (req.readyState != 4) return;
-          doc = new Vex.Flow.Document(req.responseText);
-          doc.getFormatter().setWidth(800).draw($("#viewer")[0]);
+          // Create DOM elements for rendering
+          // TODO: Have the Stretto frontend library handle this for us
+          $("#viewer").append("<canvas id='viewerCanvas'></canvas>");
+
+          // Parse MusicXML into our representation
+          // TODO: Have the Stretto frontend library call and store this for us
+          var mxmlHandler = new Stretto.Serialization.MusicXML();
+          mxmlHandler.load(req.responseText);
+
+          // Begin rendering
+          // TODO: Update this to use the new parser
+          // doc = new Vex.Flow.Document(req.responseText);
+          // doc.getFormatter().setWidth(800).draw($("#viewer")[0]);
+
+          console.log(mxmlHandler);
         };
         req.send(null);
       });
