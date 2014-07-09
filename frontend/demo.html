@@ -5,9 +5,17 @@
 
     <!-- Based heavily on ringw's VexFlow MusicXML demo at http://ringwa.lt/vexflow-demo/ -->
 
-    <!-- Compiled Sources (may need to be copied to same directory) -->
+    <!-- VexFlow sources -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/vexflow/build/vexflow/vexflow-debug.js"></script>
+
+    <!-- Stretto sources -->
+    <script src="bower_components/quadtree-js/quadtree.js"></script>
+    <script src="bower_components/sat-js/SAT.js"></script>
+    <!-- TODO: Add a script to minify these -->
+    <script src="js/stretto.js"></script>
+    <script src="js/editabledocument.js"></script>
+    <script src="js/editabledocumentformatter.js"></script>
 
     <script>
       // source: http://stackoverflow.com/a/901144
@@ -20,6 +28,7 @@
       }
 
       var doc = null;
+      var docFormatter = null;
       $(document).ready(function() {
         var req = new XMLHttpRequest();
         var uri = getParameter('doc');
@@ -27,8 +36,9 @@
         req.open('GET', uri, true);
         req.onreadystatechange = function() {
           if (req.readyState != 4) return;
-          doc = new Vex.Flow.Document(req.responseText);
-          doc.getFormatter().setWidth(800).draw($("#viewer")[0]);
+          doc = new Stretto.EditableDocument(req.responseText);
+          docFormatter = doc.getFormatter(Stretto.EditableDocumentFormatter);
+          docFormatter.draw($("#viewer")[0]);
         };
         req.send(null);
       });

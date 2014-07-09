@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "jquery": "jquery/jquery",
-    "vexflow": "ringw/vexflow#musicxml"
+    "vexflow": "aarmea/vexflow#aarmea-dev",
+    "quadtree-js": "timohausmann/quadtree-js",
+    "sat-js": "jriecken/sat-js"
   }
 }
